@@ -53,6 +53,9 @@ def main() -> int:
     # --- LLM (Groq free tier by default; fast enough for a short CI job) -------
     app["llm_provider"] = "groq"
     app["groq_api_key"] = _require("GROQ_API_KEY")
+    app["groq_base_url"] = os.environ.get(
+        "GROQ_BASE_URL", "https://api.groq.com/openai/v1"
+    )
     app["groq_model_name"] = os.environ.get(
         "GROQ_MODEL_NAME", "llama-3.3-70b-versatile"
     )
