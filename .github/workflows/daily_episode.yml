@@ -64,10 +64,16 @@ jobs:
 
       - name: Generate episode (script, voice, stock footage, subtitles, render)
         run: |
+          set +e
           uv run python cli.py \
             --video-subject "${{ steps.topic.outputs.subject }}" \
-            --stop-at video > result.json
+            --stop-at video > result.json 2>cli_stderr.log
+          EXIT=$?
+          echo "=== STDERR ==="
+          cat cli_stderr.log
+          echo "=== STDOUT/result.json ==="
           cat result.json
+          exit $EXIT
 
       - name: Publish via official APIs (YouTube / TikTok / Instagram)
         # Credentials are only ever passed as process environment variables --
