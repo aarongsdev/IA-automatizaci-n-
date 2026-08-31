@@ -57,7 +57,7 @@ def main() -> int:
         "GROQ_BASE_URL", "https://api.groq.com/openai/v1"
     )
     app["groq_model_name"] = os.environ.get(
-        "GROQ_MODEL_NAME", "llama-3.3-70b-versatile"
+        "GROQ_MODEL_NAME", "llama3-70b-8192"
     )
 
     # --- Voice / subtitles: free, no key required -------------------------------
