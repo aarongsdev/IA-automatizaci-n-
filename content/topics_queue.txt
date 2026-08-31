@@ -1,0 +1,15 @@
+# One topic per line. Lines starting with # are ignored.
+# scripts/pick_topic.py pops the first not-yet-used line each run and
+# records it in used_topics.json so it is never repeated automatically.
+# Add more lines whenever this list runs low -- the workflow will fail
+# loudly (not silently repeat a topic) once it's exhausted.
+5 psychology facts that explain why we procrastinate
+The strange history of how coffee conquered the world
+3 space discoveries from this year that sound like science fiction
+Why cats knead blankets: the real reason, explained
+How ancient Rome built roads that still exist today
+The science of why we forget dreams within minutes of waking
+5 everyday objects that were invented by accident
+Why octopuses are considered the closest thing to an alien on Earth
+The surprising origin of common English idioms
+How your brain decides what counts as a memory worth keeping

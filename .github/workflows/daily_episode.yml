@@ -1,0 +1,106 @@
+name: Daily Episode
+
+# Runs the whole pipeline once a day on GitHub-hosted runners: no local PC,
+# no paid video-generation API, no third-party publishing relay. See
+# PLAN_IMPLEMENTACION_GITHUB.md in the repo root for the full writeup of
+# what this does and does not do, and exactly which secrets it needs.
+#
+# Adjust the cron below to your preferred UTC time. Example: 04:00 UTC.
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch: {} # lets you trigger a run manually from the Actions tab
+
+# contents:write is needed for two things this workflow does, both scoped to
+# this repo only: committing content/used_topics.json back after each run,
+# and creating/deleting the temporary Release asset that gives Instagram's
+# API a public video_url (see app/services/github_asset_host.py). Nothing
+# outside this repository is touched.
+permissions:
+  contents: write
+
+# Avoid two episodes generating (and possibly publishing) at once if a manual
+# run overlaps with the scheduled one.
+concurrency:
+  group: daily-episode
+  cancel-in-progress: false
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Confirm ffmpeg is available
+        run: ffmpeg -version || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+
+      - name: Render config.toml from secrets
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OFFICIAL_PUBLISH_PLATFORMS: ${{ vars.OFFICIAL_PUBLISH_PLATFORMS || 'youtube' }}
+          YOUTUBE_PRIVACY_STATUS: ${{ vars.YOUTUBE_PRIVACY_STATUS || 'public' }}
+        run: uv run python scripts/render_config.py
+
+      - name: Pick today's topic
+        id: topic
+        run: |
+          uv run python scripts/pick_topic.py > topic.json
+          SUBJECT=$(uv run python -c "import json;print(json.load(open('topic.json'))['subject'])")
+          echo "subject=$SUBJECT" >> "$GITHUB_OUTPUT"
+
+      - name: Generate episode (script, voice, stock footage, subtitles, render)
+        run: |
+          uv run python cli.py \
+            --video-subject "${{ steps.topic.outputs.subject }}" \
+            --stop-at video > result.json
+          cat result.json
+
+      - name: Publish via official APIs (YouTube / TikTok / Instagram)
+        # Credentials are only ever passed as process environment variables --
+        # never written to config.toml or any other file on disk. Leave a
+        # platform's secrets unset in the repo to skip it; see
+        # PLAN_IMPLEMENTACION_GITHUB.md for how to obtain each one.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # used only for the temp Instagram hosting trick
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+          INSTAGRAM_BUSINESS_ACCOUNT_ID: ${{ secrets.INSTAGRAM_BUSINESS_ACCOUNT_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          uv run python scripts/publish_video.py result.json "${{ steps.topic.outputs.subject }}"
+
+      - name: Upload video as a workflow artifact (free 90-day backup)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-${{ github.run_id }}
+          path: storage/tasks/**/*.mp4
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: Record today's topic as used
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/used_topics.json
+          git diff --cached --quiet || git commit -m "chore: record used topic [skip ci]"
+          git push
