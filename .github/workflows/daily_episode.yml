@@ -71,7 +71,7 @@ jobs:
             --voice-name "es-MX-DaliaNeural-Female" \
             --paragraph-number 6 \
             --video-aspect "9:16" \
-            --subtitle-enabled false \
+            --no-subtitle-enabled \
             --custom-system-prompt "$(cat content/system_prompt.txt)" \
             --stop-at video > result.json 2>cli_stderr.log
           EXIT=$?
