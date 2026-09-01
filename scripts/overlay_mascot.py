@@ -34,7 +34,7 @@ CHARACTERS_DIR = os.path.join(ROOT, "assets", "characters")
 # episode-to-episode variation stays coherent with what's on screen.
 SERIES_MASCOTS = {
     "Luna, la zorrita curiosa": ["luna_fox.png"],
-    "Tobías y el barco de papel": ["tobias_boy.png"],
+    "Tobías y el barco de papel": ["toby_paperboat.png"],
     "El elefante invisible": ["pipo_elephant.png"],
     "La isla de luna llena": ["mar_sister.png", "leo_brother.png"],
     "El rey que aprendió a escuchar": ["teodoro_king.png", "alba_villager.png"],

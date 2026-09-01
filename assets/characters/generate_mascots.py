@@ -161,6 +161,56 @@ CHARACTERS = {
 }
 
 
+# --- "Object with a body" mascots -----------------------------------------
+# The eye-catching, scroll-stopping style the user asked for (think: a
+# coffee cup with human arms and legs) -- an everyday object gets a face,
+# arms and legs and just walks/talks like a person. Taller canvas than the
+# bust template above so there's room for a standing body. Each one is
+# still hand-drawn plain SVG shapes, no third-party art or image API.
+BODY_TEMPLATE = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520">
+  {legs}
+  {body}
+  {arms}
+  {face}
+</svg>
+"""
+
+OBJECT_CHARACTERS = {
+    # Toby -- the talking paper boat, "Tobías y el barco de papel". A folded
+    # paper hull with a face, noodle arms and little legs -- replaces the
+    # plain boy bust with a proper object-with-a-body hook character.
+    "toby_paperboat": dict(
+        legs=(
+            '<path d="M 165 400 L 155 470 L 185 470 L 190 405 Z" fill="#d8b892"/>'
+            '<ellipse cx="163" cy="478" rx="26" ry="12" fill="#7a5230"/>'
+            '<path d="M 235 400 L 245 465 L 215 470 L 210 405 Z" fill="#d8b892"/>'
+            '<ellipse cx="237" cy="475" rx="26" ry="12" fill="#7a5230"/>'
+        ),
+        body=(
+            '<path d="M 60 300 L 200 150 L 340 300 L 300 400 L 100 400 Z" fill="#f5ead7"/>'
+            '<path d="M 60 300 L 340 300 L 300 330 L 100 330 Z" fill="#e6d5b8"/>'
+            '<path d="M 200 150 L 200 300" stroke="#d8c39c" stroke-width="4"/>'
+            '<path d="M 200 150 L 260 60 L 260 210 Z" fill="#e0577a"/>'
+        ),
+        arms=(
+            '<path d="M 100 330 Q 40 320 25 260" stroke="#d8b892" stroke-width="24" fill="none" stroke-linecap="round"/>'
+            '<circle cx="22" cy="252" r="20" fill="#d8b892"/>'
+            '<path d="M 300 330 Q 370 340 385 390" stroke="#d8b892" stroke-width="24" fill="none" stroke-linecap="round"/>'
+            '<circle cx="388" cy="396" r="20" fill="#d8b892"/>'
+        ),
+        face=(
+            '<circle cx="170" cy="255" r="20" fill="#2b1a12"/>'
+            '<circle cx="176" cy="247" r="6" fill="#ffffff"/>'
+            '<circle cx="250" cy="255" r="20" fill="#2b1a12"/>'
+            '<circle cx="256" cy="247" r="6" fill="#ffffff"/>'
+            '<circle cx="130" cy="270" r="18" fill="#ff9f7a" opacity="0.5"/>'
+            '<circle cx="290" cy="270" r="18" fill="#ff9f7a" opacity="0.5"/>'
+            '<path d="M 190 290 Q 210 310 230 290" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>'
+        ),
+    ),
+}
+
+
 def main() -> None:
     for key, params in CHARACTERS.items():
         svg = HEAD_TEMPLATE.format(key=key, **params)
@@ -169,6 +219,15 @@ def main() -> None:
         with open(svg_path, "w", encoding="utf-8") as fh:
             fh.write(svg)
         cairosvg.svg2png(url=svg_path, write_to=png_path, output_width=400, output_height=400)
+        print(f"generated {svg_path} and {png_path}")
+
+    for key, params in OBJECT_CHARACTERS.items():
+        svg = BODY_TEMPLATE.format(**params)
+        svg_path = os.path.join(HERE, f"{key}.svg")
+        png_path = os.path.join(HERE, f"{key}.png")
+        with open(svg_path, "w", encoding="utf-8") as fh:
+            fh.write(svg)
+        cairosvg.svg2png(url=svg_path, write_to=png_path, output_width=400, output_height=520)
         print(f"generated {svg_path} and {png_path}")
 
 
