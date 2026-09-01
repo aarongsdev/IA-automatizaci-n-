@@ -83,6 +83,9 @@ jobs:
           cat result.json
           exit $EXIT
 
+      - name: Overlay series mascot (free, self-drawn asset -- no third-party art)
+        run: uv run python scripts/overlay_mascot.py result.json "${{ steps.topic.outputs.subject }}"
+
       - name: Publish via official APIs (YouTube / TikTok / Instagram)
         # Credentials are only ever passed as process environment variables --
         # never written to config.toml or any other file on disk. Leave a

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="cheekGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9f7a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ff9f7a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ears -->
+  <path d="M 110 140 L 60 40 L 165 100 Z" fill="#e8823b"/>
+  <path d="M 118 135 L 88 65 L 158 100 Z" fill="#3a2418"/>
+  <path d="M 290 140 L 340 40 L 235 100 Z" fill="#e8823b"/>
+  <path d="M 282 135 L 312 65 L 242 100 Z" fill="#3a2418"/>
+
+  <!-- head -->
+  <ellipse cx="200" cy="215" rx="145" ry="130" fill="#f2955a"/>
+
+  <!-- white muzzle patch -->
+  <ellipse cx="200" cy="260" rx="95" ry="80" fill="#fff3e6"/>
+
+  <!-- cheeks blush -->
+  <circle cx="115" cy="255" r="34" fill="url(#cheekGlow)"/>
+  <circle cx="285" cy="255" r="34" fill="url(#cheekGlow)"/>
+
+  <!-- eyes -->
+  <ellipse cx="150" cy="205" rx="26" ry="30" fill="#2b1a12"/>
+  <ellipse cx="250" cy="205" rx="26" ry="30" fill="#2b1a12"/>
+  <circle cx="159" cy="194" r="8" fill="#ffffff"/>
+  <circle cx="259" cy="194" r="8" fill="#ffffff"/>
+
+  <!-- eyebrows -->
+  <path d="M 122 168 Q 150 152 178 168" stroke="#3a2418" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M 222 168 Q 250 152 278 168" stroke="#3a2418" stroke-width="7" fill="none" stroke-linecap="round"/>
+
+  <!-- nose -->
+  <path d="M 185 250 L 215 250 L 200 270 Z" fill="#2b1a12"/>
+
+  <!-- mouth -->
+  <path d="M 200 270 Q 200 292 172 292 Q 150 292 150 275" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 200 270 Q 200 292 228 292 Q 250 292 250 275" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- whisker dots -->
+  <circle cx="120" cy="270" r="3.5" fill="#c9714a"/>
+  <circle cx="112" cy="285" r="3.5" fill="#c9714a"/>
+  <circle cx="280" cy="270" r="3.5" fill="#c9714a"/>
+  <circle cx="288" cy="285" r="3.5" fill="#c9714a"/>
+</svg>
