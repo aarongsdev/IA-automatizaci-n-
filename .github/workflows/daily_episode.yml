@@ -71,6 +71,7 @@ jobs:
             --voice-name "es-MX-DaliaNeural-Female" \
             --paragraph-number 4 \
             --video-aspect "9:16" \
+            --subtitle-enabled false \
             --stop-at video > result.json 2>cli_stderr.log
           EXIT=$?
           echo "=== STDERR ==="
