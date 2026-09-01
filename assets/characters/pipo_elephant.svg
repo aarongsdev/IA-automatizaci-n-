@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="cheek-pipo_elephant" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9f9f" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ff9f9f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="70" cy="220" rx="55" ry="70" fill="#aab9cc"/><ellipse cx="330" cy="220" rx="55" ry="70" fill="#aab9cc"/><ellipse cx="70" cy="220" rx="34" ry="48" fill="#8f9fb3"/><ellipse cx="330" cy="220" rx="34" ry="48" fill="#8f9fb3"/>
+  <ellipse cx="200" cy="215" rx="145" ry="130" fill="#aab9cc"/>
+  <path d="M 190 260 Q 180 320 195 350 Q 205 360 215 350 Q 210 330 205 300 Q 205 275 195 260 Z" fill="#aab9cc"/>
+  <circle cx="118" cy="255" r="34" fill="url(#cheek-pipo_elephant)"/>
+  <circle cx="282" cy="255" r="34" fill="url(#cheek-pipo_elephant)"/>
+  <ellipse cx="150" cy="205" rx="24" ry="28" fill="#2b1a12"/>
+  <ellipse cx="250" cy="205" rx="24" ry="28" fill="#2b1a12"/>
+  <circle cx="158" cy="195" r="7" fill="#ffffff"/>
+  <circle cx="258" cy="195" r="7" fill="#ffffff"/>
+  <path d="M 124 170 Q 150 156 176 170" stroke="#5c6a7d" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 224 170 Q 250 156 276 170" stroke="#5c6a7d" stroke-width="6" fill="none" stroke-linecap="round"/>
+  
+  <path d="M 200 265 Q 200 288 176 288 Q 158 288 158 274" stroke="#3a4657" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 200 265 Q 200 288 224 288 Q 242 288 242 274" stroke="#3a4657" stroke-width="6" fill="none" stroke-linecap="round"/>
+  
+  
+</svg>

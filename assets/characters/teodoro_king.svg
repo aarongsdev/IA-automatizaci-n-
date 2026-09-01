@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="cheek-teodoro_king" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9f9f" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ff9f9f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <ellipse cx="200" cy="215" rx="145" ry="130" fill="#f0c8a0"/>
+  <path d="M 130 160 L 150 100 L 180 145 L 200 90 L 220 145 L 250 100 L 270 160 Z" fill="#e8b923"/><circle cx="150" cy="100" r="8" fill="#c0392b"/><circle cx="200" cy="90" r="8" fill="#3b6fc9"/><circle cx="250" cy="100" r="8" fill="#c0392b"/><path d="M 130 240 Q 200 260 270 240" stroke="#c9c9c9" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="118" cy="255" r="34" fill="url(#cheek-teodoro_king)"/>
+  <circle cx="282" cy="255" r="34" fill="url(#cheek-teodoro_king)"/>
+  <ellipse cx="150" cy="205" rx="24" ry="28" fill="#2b1a12"/>
+  <ellipse cx="250" cy="205" rx="24" ry="28" fill="#2b1a12"/>
+  <circle cx="158" cy="195" r="7" fill="#ffffff"/>
+  <circle cx="258" cy="195" r="7" fill="#ffffff"/>
+  <path d="M 124 170 Q 150 156 176 170" stroke="#c9c9c9" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 224 170 Q 250 156 276 170" stroke="#c9c9c9" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 192 245 Q 200 260 208 245" stroke="#c98a5a" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M 200 265 Q 200 288 176 288 Q 158 288 158 274" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 200 265 Q 200 288 224 288 Q 242 288 242 274" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>
+  
+  <path d="M 120 330 Q 200 295 280 330 L 280 400 L 120 400 Z" fill="#6a3fa0"/>
+</svg>
