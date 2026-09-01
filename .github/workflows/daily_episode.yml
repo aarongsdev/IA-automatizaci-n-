@@ -125,4 +125,16 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/used_topics.json
           git diff --cached --quiet || git commit -m "chore: record used topic [skip ci]"
-          git push
+          # A concurrent run (or a push from elsewhere) can land on this branch
+          # between checkout and here; rebase onto the latest remote before
+          # pushing, retrying a few times, instead of failing the whole job
+          # over a push race on a file nothing else in this step touches.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              break
+            fi
+            echo "push rejected (attempt $attempt), rebasing onto latest remote and retrying..."
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            sleep $((attempt * 2))
+          done
