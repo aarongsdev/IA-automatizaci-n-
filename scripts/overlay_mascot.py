@@ -18,6 +18,7 @@ No-ops (exit 0) if the subject's series has no mascot asset, or if ffmpeg
 is unavailable -- this step must never fail the workflow.
 """
 import glob
+import json
 import os
 import random
 import shutil
@@ -26,6 +27,13 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 CHARACTERS_DIR = os.path.join(ROOT, "assets", "characters")
+
+# Name of the small state file dropped next to the rendered mp4 recording
+# which mascot PNG was picked for this run. scripts/generate_thumbnail.py
+# reads it so the thumbnail's foreground character always matches the one
+# actually composited onto the video, instead of re-rolling the random
+# choice and risking a mismatch.
+MASCOT_STATE_FILENAME = "mascot_used.json"
 
 # Maps each series name (the part of the video subject before " - Capitulo")
 # to its cast of mascot image files. When a series has more than one
@@ -73,13 +81,25 @@ def main() -> int:
         print(f"mascot asset missing: {mascot_path}, skipping overlay")
         return 0
 
-    if not shutil.which("ffmpeg"):
-        print("ffmpeg not found, skipping mascot overlay")
-        return 0
-
     video_path = _find_output_video()
     if not video_path:
         print("no rendered mp4 found, skipping mascot overlay")
+        return 0
+
+    # Record which mascot got picked next to the video, regardless of
+    # whether the ffmpeg overlay below succeeds -- generate_thumbnail.py
+    # reuses this choice so the thumbnail's character always matches what
+    # (would have) appeared in the video, without re-rolling the random
+    # pick and risking the two disagreeing.
+    state_path = os.path.join(os.path.dirname(video_path), MASCOT_STATE_FILENAME)
+    try:
+        with open(state_path, "w", encoding="utf-8") as fh:
+            json.dump({"series": series, "mascot_file": mascot_file}, fh)
+    except OSError as exc:
+        print(f"could not write mascot state file: {exc}")
+
+    if not shutil.which("ffmpeg"):
+        print("ffmpeg not found, skipping mascot overlay")
         return 0
 
     tmp_output = video_path + ".with_mascot.mp4"

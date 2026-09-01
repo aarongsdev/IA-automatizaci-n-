@@ -86,6 +86,9 @@ jobs:
       - name: Overlay series mascot (free, self-drawn asset -- no third-party art)
         run: uv run python scripts/overlay_mascot.py result.json "${{ steps.topic.outputs.subject }}"
 
+      - name: Generate episode thumbnail (free, local -- ffmpeg + Pillow)
+        run: uv run python scripts/generate_thumbnail.py result.json "${{ steps.topic.outputs.subject }}"
+
       - name: Publish via official APIs (YouTube / TikTok / Instagram)
         # Credentials are only ever passed as process environment variables --
         # never written to config.toml or any other file on disk. Leave a
@@ -109,7 +112,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: episode-${{ github.run_id }}
-          path: storage/tasks/**/*.mp4
+          path: |
+            storage/tasks/**/*.mp4
+            storage/tasks/**/thumbnail.jpg
           retention-days: 90
           if-no-files-found: ignore
 
