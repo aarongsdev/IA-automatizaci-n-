@@ -1,0 +1,48 @@
+[
+  {
+    "series": "Luna, la zorrita curiosa",
+    "chapters": [
+      "Luna descubre una cueva que brilla en la oscuridad y decide entrar aunque le da miedo",
+      "Luna se pierde en el Bosque de los Susurros cuando cae una tormenta repentina",
+      "Luna encuentra un huevo de pájaro caído del nido y no sabe si debe tocarlo",
+      "Luna quiere cruzar el río crecido para ayudar a su amigo el conejo atrapado en la otra orilla",
+      "Luna descubre que alguien ha estado robando bayas del huerto del bosque y decide investigar"
+    ]
+  },
+  {
+    "series": "Tobías y el barco de papel",
+    "chapters": [
+      "Tobías construye un barco de papel y sueña con que llegue hasta el mar, pero el charco de su patio no es tan grande",
+      "El barco de papel de Tobías es arrastrado por la lluvia hasta una alcantarilla oscura",
+      "Tobías conoce a una hormiga que necesita cruzar un charco enorme y le presta su barco de papel",
+      "El barco de papel de Tobías se moja demasiado y empieza a deshacerse justo antes de llegar a su destino"
+    ]
+  },
+  {
+    "series": "El elefante invisible",
+    "chapters": [
+      "Un elefante llamado Pipo descubre que puede volverse invisible cuando se pone muy nervioso",
+      "Pipo se vuelve invisible justo antes del gran espectáculo del circo y no sabe cómo regresar a la normalidad",
+      "Pipo usa su invisibilidad para ayudar a un amigo que está siendo molestado por los demás animales",
+      "Pipo se da cuenta de que ser invisible lo hace sentir solo y aprende a mostrarse tal como es"
+    ]
+  },
+  {
+    "series": "La isla de luna llena",
+    "chapters": [
+      "Dos hermanos descubren que una isla solo aparece en el mar cuando hay luna llena",
+      "Los hermanos deciden remar de noche para llegar a la isla antes de que desaparezca al amanecer",
+      "En la isla encuentran un mapa antiguo que señala un tesoro escondido bajo un árbol torcido",
+      "Los hermanos deben regresar a casa antes de que salga el sol o quedarán atrapados en la isla otro mes entero"
+    ]
+  },
+  {
+    "series": "El rey que aprendió a escuchar",
+    "chapters": [
+      "Un joven rey nunca escucha los consejos de nadie hasta que su reino empieza a tener problemas",
+      "El rey manda construir un puente sin escuchar a los ingenieros del pueblo y el puente se cae",
+      "Una niña del pueblo le enseña al rey la diferencia entre oír y escuchar de verdad",
+      "El rey convoca a todo el reino para escuchar sus ideas antes de tomar una decisión importante"
+    ]
+  }
+]

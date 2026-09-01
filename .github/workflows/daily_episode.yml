@@ -69,8 +69,10 @@ jobs:
             --video-subject "${{ steps.topic.outputs.subject }}" \
             --video-language "Spanish" \
             --voice-name "es-MX-DaliaNeural-Female" \
-            --paragraph-number 6 \
+            --paragraph-number 3 \
             --video-aspect "9:16" \
+            --video-clip-duration 3 \
+            --match-materials-to-script \
             --no-subtitle-enabled \
             --custom-system-prompt "$(cat content/system_prompt.txt)" \
             --stop-at video > result.json 2>cli_stderr.log
