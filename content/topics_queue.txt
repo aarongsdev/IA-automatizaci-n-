@@ -3,13 +3,36 @@
 # records it in used_topics.json so it is never repeated automatically.
 # Add more lines whenever this list runs low -- the workflow will fail
 # loudly (not silently repeat a topic) once it's exhausted.
-5 psychology facts that explain why we procrastinate
-The strange history of how coffee conquered the world
-3 space discoveries from this year that sound like science fiction
-Why cats knead blankets: the real reason, explained
-How ancient Rome built roads that still exist today
-The science of why we forget dreams within minutes of waking
-5 everyday objects that were invented by accident
-Why octopuses are considered the closest thing to an alien on Earth
-The surprising origin of common English idioms
-How your brain decides what counts as a memory worth keeping
+#
+# Formato: cuentos y fábulas en español para niños y familia.
+# Voz: es-MX-DaliaNeural | Estructura: gancho → problema → 2 intentos → solución → moraleja
+El elefante que quería ser invisible
+La tortuga que aprendió a volar (casi)
+El zorro que mentía demasiado bien
+El niño que encontró un mapa bajo su cama
+La isla que solo aparecía en luna llena
+El bosque donde los árboles hablaban de noche
+La ardilla que guardó demasiado para el invierno
+El delfín que salvó a su peor enemigo
+La lechuza que no quería escuchar consejos
+El oso que aprendió a pedir perdón
+Los tres conejos y el río que se secó
+La cueva de los mil ecos
+El barco de papel que cruzó el océano
+El puente que llevaba a otro mundo
+La montaña que guardaba un secreto
+El río que corría hacia arriba
+La casa del final del camino
+El espejo que mostraba el pasado
+La sombra que no seguía a nadie
+La leyenda del árbol que concedía un deseo
+El regalo más caro del mundo
+El niño que tenía todo y no era feliz
+La princesa que eligió ser cocinera
+El rey que aprendió a escuchar
+La amistad entre el sol y la luna
+El lobo que quería ser pastor
+La mariposa que no quería cambiar
+El niño que vio sus propias huellas ir solas
+La leyenda del lago que nunca congela
+El tren que llegaba a medianoche

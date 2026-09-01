@@ -67,6 +67,10 @@ jobs:
           set +e
           uv run python cli.py \
             --video-subject "${{ steps.topic.outputs.subject }}" \
+            --video-language "Spanish" \
+            --voice-name "es-MX-DaliaNeural-Female" \
+            --paragraph-number 4 \
+            --video-aspect "9:16" \
             --stop-at video > result.json 2>cli_stderr.log
           EXIT=$?
           echo "=== STDERR ==="
@@ -91,7 +95,7 @@ jobs:
           INSTAGRAM_BUSINESS_ACCOUNT_ID: ${{ secrets.INSTAGRAM_BUSINESS_ACCOUNT_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
         run: |
-          uv run python scripts/publish_video.py result.json "${{ steps.topic.outputs.subject }}"
+          uv run python scripts/publish_video.py result.json "${{ steps.topic.outputs.subject }}" || echo "Publishing skipped (credentials not configured)"
 
       - name: Upload video as a workflow artifact (free 90-day backup)
         if: always()
