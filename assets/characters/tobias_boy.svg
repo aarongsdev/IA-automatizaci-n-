@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="cheek-tobias_boy" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff9f7a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ff9f7a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <ellipse cx="200" cy="215" rx="145" ry="130" fill="#f4c99b"/>
+  <path d="M 90 170 Q 90 40 200 40 Q 310 40 310 170 Q 300 130 200 120 Q 100 130 90 170 Z" fill="#6b4226"/><path d="M 190 40 L 205 12 L 212 45 Z" fill="#6b4226"/>
+  <circle cx="118" cy="255" r="34" fill="url(#cheek-tobias_boy)"/>
+  <circle cx="282" cy="255" r="34" fill="url(#cheek-tobias_boy)"/>
+  <ellipse cx="150" cy="205" rx="24" ry="28" fill="#2b1a12"/>
+  <ellipse cx="250" cy="205" rx="24" ry="28" fill="#2b1a12"/>
+  <circle cx="158" cy="195" r="7" fill="#ffffff"/>
+  <circle cx="258" cy="195" r="7" fill="#ffffff"/>
+  <path d="M 124 170 Q 150 156 176 170" stroke="#6b4226" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 224 170 Q 250 156 276 170" stroke="#6b4226" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 192 245 Q 200 258 208 245" stroke="#c98a5a" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M 200 265 Q 200 288 176 288 Q 158 288 158 274" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M 200 265 Q 200 288 224 288 Q 242 288 242 274" stroke="#2b1a12" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="142" cy="280" r="3" fill="#c9714a"/><circle cx="136" cy="295" r="3" fill="#c9714a"/><circle cx="258" cy="280" r="3" fill="#c9714a"/><circle cx="264" cy="295" r="3" fill="#c9714a"/>
+  <path d="M 130 330 Q 200 300 270 330 L 270 400 L 130 400 Z" fill="#3f7bbf"/>
+</svg>

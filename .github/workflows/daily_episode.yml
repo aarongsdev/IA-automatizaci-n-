@@ -8,7 +8,7 @@ name: Daily Episode
 # Adjust the cron below to your preferred UTC time. Example: 04:00 UTC.
 on:
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 15 * * 2,4,6"
   workflow_dispatch: {} # lets you trigger a run manually from the Actions tab
 
 # contents:write is needed for two things this workflow does, both scoped to
@@ -69,9 +69,12 @@ jobs:
             --video-subject "${{ steps.topic.outputs.subject }}" \
             --video-language "Spanish" \
             --voice-name "es-MX-DaliaNeural-Female" \
-            --paragraph-number 4 \
+            --paragraph-number 3 \
             --video-aspect "9:16" \
-            --subtitle-enabled false \
+            --video-clip-duration 3 \
+            --match-materials-to-script \
+            --no-subtitle-enabled \
+            --custom-system-prompt "$(cat content/system_prompt.txt)" \
             --stop-at video > result.json 2>cli_stderr.log
           EXIT=$?
           echo "=== STDERR ==="
@@ -79,6 +82,12 @@ jobs:
           echo "=== STDOUT/result.json ==="
           cat result.json
           exit $EXIT
+
+      - name: Overlay series mascot (free, self-drawn asset -- no third-party art)
+        run: uv run python scripts/overlay_mascot.py result.json "${{ steps.topic.outputs.subject }}"
+
+      - name: Generate episode thumbnail (free, local -- ffmpeg + Pillow)
+        run: uv run python scripts/generate_thumbnail.py result.json "${{ steps.topic.outputs.subject }}"
 
       - name: Publish via official APIs (YouTube / TikTok / Instagram)
         # Credentials are only ever passed as process environment variables --
@@ -103,7 +112,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: episode-${{ github.run_id }}
-          path: storage/tasks/**/*.mp4
+          path: |
+            storage/tasks/**/*.mp4
+            storage/tasks/**/thumbnail.jpg
           retention-days: 90
           if-no-files-found: ignore
 
@@ -114,4 +125,16 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/used_topics.json
           git diff --cached --quiet || git commit -m "chore: record used topic [skip ci]"
-          git push
+          # A concurrent run (or a push from elsewhere) can land on this branch
+          # between checkout and here; rebase onto the latest remote before
+          # pushing, retrying a few times, instead of failing the whole job
+          # over a push race on a file nothing else in this step touches.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              break
+            fi
+            echo "push rejected (attempt $attempt), rebasing onto latest remote and retrying..."
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            sleep $((attempt * 2))
+          done
