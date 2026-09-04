@@ -9,7 +9,12 @@ name: Daily Episode
 on:
   schedule:
     - cron: "0 15 * * 2,4,6"
-  workflow_dispatch: {} # lets you trigger a run manually from the Actions tab
+  workflow_dispatch: # lets you trigger a run manually from the Actions tab
+    inputs:
+      publish:
+        description: "Publish to YouTube/TikTok/Instagram after generating (uncheck for a dry run: generates the video/thumbnail as a downloadable artifact only, never touches any platform)"
+        type: boolean
+        default: true
 
 # contents:write is needed for two things this workflow does, both scoped to
 # this repo only: committing content/used_topics.json back after each run,
@@ -90,6 +95,7 @@ jobs:
         run: uv run python scripts/generate_thumbnail.py result.json "${{ steps.topic.outputs.subject }}"
 
       - name: Publish via official APIs (YouTube / TikTok / Instagram)
+        if: ${{ inputs.publish != false }}
         # Credentials are only ever passed as process environment variables --
         # never written to config.toml or any other file on disk. Leave a
         # platform's secrets unset in the repo to skip it; see
