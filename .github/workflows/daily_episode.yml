@@ -60,10 +60,14 @@ jobs:
           YOUTUBE_PRIVACY_STATUS: ${{ vars.YOUTUBE_PRIVACY_STATUS || 'public' }}
         run: uv run python scripts/render_config.py
 
-      - name: Pick today's topic
+      - name: Let the LLM decide the next episode (continue/conclude/new series)
         id: topic
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_BASE_URL: ${{ vars.GROQ_BASE_URL }}
+          GROQ_MODEL_NAME: ${{ vars.GROQ_MODEL_NAME }}
         run: |
-          uv run python scripts/pick_topic.py > topic.json
+          uv run python scripts/decide_next_episode.py > topic.json
           SUBJECT=$(uv run python -c "import json;print(json.load(open('topic.json'))['subject'])")
           echo "subject=$SUBJECT" >> "$GITHUB_OUTPUT"
 
@@ -129,7 +133,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add content/used_topics.json
+          git add content/show_state.json content/used_topics.json
           git diff --cached --quiet || git commit -m "chore: record used topic [skip ci]"
           # A concurrent run (or a push from elsewhere) can land on this branch
           # between checkout and here; rebase onto the latest remote before

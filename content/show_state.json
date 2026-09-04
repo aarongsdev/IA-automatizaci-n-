@@ -1,0 +1,20 @@
+{
+  "roster": {
+    "Luna, la zorrita curiosa": {"mascots": ["luna_fox.png"], "status": "in_progress"},
+    "Tobías y el barco de papel": {"mascots": ["toby_paperboat.png"], "status": "not_started"},
+    "El elefante invisible": {"mascots": ["pipo_elephant.png"], "status": "not_started"},
+    "La isla de luna llena": {"mascots": ["mar_sister.png", "leo_brother.png"], "status": "not_started"},
+    "El rey que aprendió a escuchar": {"mascots": ["teodoro_king.png", "alba_villager.png"], "status": "not_started"}
+  },
+  "series": [
+    {
+      "name": "Luna, la zorrita curiosa",
+      "status": "in_progress",
+      "chapters": [
+        {"n": 1, "summary": "Luna descubre una cueva que brilla en la oscuridad y decide entrar aunque le da miedo"},
+        {"n": 2, "summary": "Luna se pierde en el Bosque de los Susurros cuando cae una tormenta repentina"},
+        {"n": 3, "summary": "Luna encuentra un huevo de pájaro caído del nido y no sabe si debe tocarlo"}
+      ]
+    }
+  ]
+}
