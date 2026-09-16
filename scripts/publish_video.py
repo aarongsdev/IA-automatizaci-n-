@@ -21,12 +21,62 @@ either way so the workflow can surface it in the job log.
 """
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.insert(0, ROOT)
 
 from app.services import official_publish  # noqa: E402
+
+BASE_TAGS = ["cuentosinfantiles", "cuentosparaniños", "shorts", "storytime"]
+
+
+def _series_name(subject: str) -> str:
+    return subject.split(" - Capitulo", 1)[0].strip()
+
+
+def _series_hashtag(series: str) -> str:
+    # First word of the series name (usually the protagonist's own name),
+    # e.g. "Luna, la zorrita curiosa" -> "Luna" -- keeps hashtags on-brand
+    # and searchable without needing another LLM call for this.
+    first_word = re.split(r"[ ,]+", series.strip())[0]
+    return re.sub(r"[^0-9A-Za-zÁÉÍÓÚáéíóúÑñ]", "", first_word)
+
+
+def _build_youtube_extra(subject: str, script: str) -> dict:
+    """
+    Builds a click-worthy title, a comment-baiting description and a tag
+    list from what the pipeline already generated -- no extra LLM call, so
+    this never adds a new point of failure to an unattended run.
+
+    Rationale (see the "100% viral" strategy discussion): ~85% of
+    Shorts/TikTok viewers decide whether to keep watching before they ever
+    turn the sound on, and click-through lives or dies on the title/
+    thumbnail text, not the video itself. A raw internal "subject" string
+    optimized for the LLM writer is not optimized for a human scrolling
+    their feed -- this rewrites it into one that is.
+    """
+    series = _series_name(subject)
+    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", script) if s.strip()]
+    hook = sentences[0] if sentences else subject
+
+    title = hook if hook.endswith("?") else f"{hook}"
+    title = title[:90].rstrip()
+    if not title.endswith(("?", "!")):
+        title += "..."
+    title = f"{title} 😱 #Shorts"[:100]
+
+    description = (
+        f"{script}\n\n"
+        "¿Tú qué habrías hecho? Cuéntamelo en los comentarios 👇\n\n"
+        f"Suscríbete para no perderte el próximo capítulo de {series} 🦊\n\n"
+        + " ".join(f"#{tag}" for tag in BASE_TAGS)
+        + f" #{_series_hashtag(series)}"
+    )[:5000]
+
+    tags = BASE_TAGS + [_series_hashtag(series).lower()]
+    return {"youtube_title": title, "youtube_description": description, "tags": tags}
 
 
 def main(argv: list) -> int:
@@ -51,6 +101,8 @@ def main(argv: list) -> int:
         return 1
 
     video_path = videos[0]
+    script = str((cli_output.get("result") or {}).get("script") or "")
+    youtube_extra = _build_youtube_extra(title, script) if script else None
 
     if not official_publish.official_publish_service.enabled:
         print(
@@ -63,7 +115,9 @@ def main(argv: list) -> int:
         )
         return 1
 
-    result = official_publish.cross_post_video(video_path=video_path, title=title)
+    result = official_publish.cross_post_video(
+        video_path=video_path, title=title, youtube_extra=youtube_extra
+    )
     print(json.dumps(result, ensure_ascii=False))
     return 0 if result.get("success") else 1
 

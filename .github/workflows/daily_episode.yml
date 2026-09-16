@@ -95,6 +95,9 @@ jobs:
       - name: Overlay series mascot (free, self-drawn asset -- no third-party art)
         run: uv run python scripts/overlay_mascot.py result.json "${{ steps.topic.outputs.subject }}"
 
+      - name: Burn hook/cliffhanger text into video (retention -- most viewers watch muted)
+        run: uv run python scripts/burn_hook_text.py result.json "${{ steps.topic.outputs.subject }}"
+
       - name: Generate episode thumbnail (free, local -- ffmpeg + Pillow)
         run: uv run python scripts/generate_thumbnail.py result.json "${{ steps.topic.outputs.subject }}"
 
