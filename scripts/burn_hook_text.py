@@ -159,7 +159,13 @@ def main() -> int:
         cmd = [
             "ffmpeg", "-y", "-i", video_path,
             "-vf", filter_complex,
-            "-c:a", "copy",
+            # Explicit codecs, not "-c:a copy" -- see the same note in
+            # overlay_mascot.py: MP3-in-MP4 audio (common from the TTS step)
+            # trips up Windows' built-in player with an "unsupported
+            # encoding configuration" error. H.264 + AAC + yuv420p plays
+            # everywhere.
+            "-c:v", "libx264", "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "192k",
             tmp_output,
         ]
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
