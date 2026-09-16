@@ -99,7 +99,13 @@ jobs:
         run: uv run python scripts/generate_thumbnail.py result.json "${{ steps.topic.outputs.subject }}"
 
       - name: Publish via official APIs (YouTube / TikTok / Instagram)
-        if: ${{ inputs.publish != false }}
+        # BUG FIX (was `inputs.publish != false`): on a schedule/push trigger
+        # `inputs` doesn't exist at all, so `inputs.publish` is null -- and
+        # GitHub Actions compares null and false as equal (both coerce to 0),
+        # making that condition false and silently SKIPPING every scheduled
+        # run's publish step. Gate on the event name instead: only a manual
+        # workflow_dispatch run can opt out of publishing.
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.publish == true }}
         # Credentials are only ever passed as process environment variables --
         # never written to config.toml or any other file on disk. Leave a
         # platform's secrets unset in the repo to skip it; see
