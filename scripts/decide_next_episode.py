@@ -105,8 +105,16 @@ def _ask_llm(state: dict) -> dict:
     from openai import OpenAI
 
     api_key = os.environ["GROQ_API_KEY"]
-    base_url = os.environ.get("GROQ_BASE_URL", "https://api.groq.com/openai/v1")
-    model = os.environ.get("GROQ_MODEL_NAME", "openai/gpt-oss-120b")
+    # `or` (not a second os.environ.get() arg) on purpose: the workflow's
+    # `env:` block always sets these two keys, even when the underlying repo
+    # variable is unset -- GitHub Actions then sets the env var to an empty
+    # string rather than omitting it. os.environ.get(name, default) only
+    # falls back when the key is *missing*, so an empty string was winning
+    # over the default and handing the OpenAI client an invalid base_url/
+    # model, silently breaking every LLM-driven decision since this script
+    # was added.
+    base_url = os.environ.get("GROQ_BASE_URL") or "https://api.groq.com/openai/v1"
+    model = os.environ.get("GROQ_MODEL_NAME") or "openai/gpt-oss-120b"
 
     client = OpenAI(api_key=api_key, base_url=base_url)
     response = client.chat.completions.create(
