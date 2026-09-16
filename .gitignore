@@ -28,6 +28,11 @@ node_modules
 venv/
 .venv
 
+# This project's own generated/ephemeral files
+/result.json
+/topic.json
+/cli_stderr.log
+
 # Debug and test files
 CLAUDE.md
 debug/
