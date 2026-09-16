@@ -115,7 +115,14 @@ def main() -> int:
         "-i", video_path,
         "-i", mascot_path,
         "-filter_complex", filter_complex,
-        "-c:a", "copy",
+        # Explicit, universally-supported codecs instead of "-c:a copy":
+        # the source audio from MoneyPrinterTurbo's TTS step is often
+        # MP3-in-MP4, which technically valid but many players (notably
+        # Windows' built-in Movies & TV app) fail to open with a generic
+        # "unsupported encoding configuration" error. H.264 + AAC + yuv420p
+        # is the safe combination that plays everywhere.
+        "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-b:a", "192k",
         tmp_output,
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
