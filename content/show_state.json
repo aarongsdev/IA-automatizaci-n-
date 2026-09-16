@@ -1,4 +1,65 @@
 {
+  "characters": {
+    "Luna": {
+      "series": "Luna, la zorrita curiosa",
+      "especie": "zorrita",
+      "personalidad": "curiosa, valiente, algo imprudente, cariñosa con sus amigos",
+      "rasgo_de_habla": "frases cortas, hace muchas preguntas en voz alta",
+      "relaciones": {},
+      "mascot_file": "luna_fox.png"
+    },
+    "Toby": {
+      "series": "Tobías y el barco de papel",
+      "especie": "barco de papel viviente",
+      "personalidad": "soñador, aventurero, frágil por fuera pero valiente cuando importa",
+      "rasgo_de_habla": "habla con entusiasmo, usa metáforas del mar y de navegar",
+      "relaciones": {},
+      "mascot_file": "toby_paperboat.png"
+    },
+    "Pipo": {
+      "series": "El elefante invisible",
+      "especie": "elefante",
+      "personalidad": "tímido, nervioso, bondadoso, se vuelve invisible cuando se pone muy nervioso",
+      "rasgo_de_habla": "habla en voz baja, se disculpa a menudo",
+      "relaciones": {},
+      "mascot_file": "pipo_elephant.png"
+    },
+    "Mar": {
+      "series": "La isla de luna llena",
+      "especie": "niña",
+      "personalidad": "decidida, protectora, la hermana mayor del dúo",
+      "rasgo_de_habla": "habla con seguridad, da órdenes cariñosas a su hermano",
+      "relaciones": {"Leo": "hermano menor"},
+      "mascot_file": "mar_sister.png"
+    },
+    "Leo": {
+      "series": "La isla de luna llena",
+      "especie": "niño",
+      "personalidad": "curioso, bromista, algo impaciente",
+      "rasgo_de_habla": "frases rápidas, hace bromas incluso nervioso",
+      "relaciones": {"Mar": "hermana mayor"},
+      "mascot_file": "leo_brother.png"
+    },
+    "Teodoro": {
+      "series": "El rey que aprendió a escuchar",
+      "especie": "rey humano",
+      "personalidad": "orgulloso al principio, aprende poco a poco a escuchar a los demás",
+      "rasgo_de_habla": "habla de forma solemne, con frases largas y formales",
+      "relaciones": {"Alba": "la niña del pueblo que le enseña a escuchar"},
+      "mascot_file": "teodoro_king.png"
+    },
+    "Alba": {
+      "series": "El rey que aprendió a escuchar",
+      "especie": "niña del pueblo",
+      "personalidad": "sabia para su edad, paciente, observadora",
+      "rasgo_de_habla": "habla con calma, hace preguntas sencillas pero profundas",
+      "relaciones": {"Teodoro": "el rey al que ayuda a cambiar"},
+      "mascot_file": "alba_villager.png"
+    }
+  },
+  "secretos_ocultos": [],
+  "tramas_abiertas": [],
+  "objetos_importantes": [],
   "roster": {
     "Luna, la zorrita curiosa": {"mascots": ["luna_fox.png"], "status": "not_started"},
     "Tobías y el barco de papel": {"mascots": ["toby_paperboat.png"], "status": "not_started"},
