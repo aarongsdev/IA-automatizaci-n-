@@ -33,6 +33,12 @@ venv/
 /topic.json
 /cli_stderr.log
 
+# NEVER commit real credentials. This pattern is ignored on purpose so a
+# local, personal copy of API keys/secrets can live on disk without ever
+# being staged or pushed -- see PROJECT_STATUS.md for where the real
+# secrets are stored (GitHub Settings -> Secrets and variables -> Actions).
+CREDENTIALS.local.md
+
 # Debug and test files
 CLAUDE.md
 debug/
