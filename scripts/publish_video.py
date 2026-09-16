@@ -29,6 +29,8 @@ sys.path.insert(0, ROOT)
 
 from app.services import official_publish  # noqa: E402
 
+CHANNEL_NAME = "El Reino de las Fábulas"
+CHANNEL_HANDLE = "@ElReinoDeFabulasTV"
 BASE_TAGS = ["cuentosinfantiles", "cuentosparaniños", "shorts", "storytime"]
 
 
@@ -70,7 +72,8 @@ def _build_youtube_extra(subject: str, script: str) -> dict:
     description = (
         f"{script}\n\n"
         "¿Tú qué habrías hecho? Cuéntamelo en los comentarios 👇\n\n"
-        f"Suscríbete para no perderte el próximo capítulo de {series} 🦊\n\n"
+        f"Suscríbete a {CHANNEL_NAME} ({CHANNEL_HANDLE}) para no perderte el "
+        f"próximo capítulo de {series} 🦊\n\n"
         + " ".join(f"#{tag}" for tag in BASE_TAGS)
         + f" #{_series_hashtag(series)}"
     )[:5000]
